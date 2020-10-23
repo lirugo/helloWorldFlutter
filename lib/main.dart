@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'vehicle.dart';
 
 void main() {
@@ -33,14 +34,21 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        children: _vehicles.map(_buildVehicle).toList(),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 1));
+          setState(() {
+            _vehicles.removeAt(0);
+          });
+        },
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+          children: _vehicles.map(_buildVehicle).toList(),
+        ),
       ),
     );
   }
@@ -48,12 +56,26 @@ class _HomePageState extends State<HomePage> {
   Widget _buildVehicle(Vehicle v) {
     return Padding(
       padding: const EdgeInsets.all(0),
-      child: ListTile(
-          title: Text(v.make + " " + v.model, style: TextStyle(fontSize: 24)),
-        subtitle: new Text(v.year + " year"),
-        onTap: () {
-
-        },
+      child: ExpansionTile(
+        title: Text(v.make + " " + v.model, style: TextStyle(fontSize: 24)),
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(v.year + " year"),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.launch),
+                )
+              ],
+            ),
+          ),
+        ],
+        // onTap: () {
+        //
+        // },
       ),
     );
   }
