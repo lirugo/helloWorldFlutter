@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'vehicle.dart';
+import 'src/vehicle.dart';
 
 void main() {
   runApp(MyApp());
@@ -55,9 +55,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildVehicle(Vehicle v) {
     return Padding(
+      key: Key(v.model + v.make + v.year),
       padding: const EdgeInsets.all(0),
       child: ExpansionTile(
-        title: Text(v.make + " " + v.model, style: TextStyle(fontSize: 24)),
+        title: Text(v.make + " " + v.model, style: TextStyle(fontSize: 16)),
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
