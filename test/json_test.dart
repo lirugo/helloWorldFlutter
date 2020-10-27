@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:helloWorldFlutter/src/article.dart';
-import 'package:helloWorldFlutter/src/json_parsing.dart';
+import 'package:hello_world_flutter/src/article.dart';
+import 'package:hello_world_flutter/src/json_parsing.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
