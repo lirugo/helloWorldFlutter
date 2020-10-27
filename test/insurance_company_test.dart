@@ -6,7 +6,7 @@ import 'package:hello_world_flutter/src/serializers.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  final url = 'http://localhost:9094/api/v1/insurance-company';
+  final url = 'http://192.168.11.78:9094/api/v1/insurance-company';
 
   test('Get insurance company list from a network', () async {
     final response = await http.get(url);
