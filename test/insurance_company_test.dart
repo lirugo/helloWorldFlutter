@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hello_world_flutter/src/model/insurance_company.dart';
+import 'package:hello_world_flutter/src/serializers.dart';
 import 'package:http/http.dart' as http;
 
-void main(){
+void main() {
   final url = 'http://localhost:9094/api/v1/insurance-company';
 
   test('Get insurance company list from a network', () async {
@@ -12,13 +14,16 @@ void main(){
     expect(response.statusCode, 200);
 
     if (response.statusCode == 200) {
-      final insuranceCompanyList = json.decode(response.body) as List;
+      final insuranceCompanyList = json.decode(utf8.decode(response.bodyBytes)) as List;
 
       // Insurance company list not empty
       expect(insuranceCompanyList.isNotEmpty, true);
 
-    }else{
-      //throw error
+      final insuranceCompany = standardSerializers.deserializeWith(
+          InsuranceCompany.serializer, insuranceCompanyList.first);
+
+      // Insurance company name not equal to null
+      expect(insuranceCompany.name != null, true);
     }
   });
 }
