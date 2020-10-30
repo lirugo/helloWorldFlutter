@@ -7,6 +7,7 @@ import 'package:built_collection/built_collection.dart';
 
 import 'model/insurance_company.dart';
 import 'model/insurance_case.dart';
+import 'model/insured_client.dart';
 
 part 'serializers.g.dart';
 
@@ -14,6 +15,7 @@ part 'serializers.g.dart';
   Article,
   InsuranceCompany,
   InsuranceCase,
+  InsuredClient,
 ])
 final Serializers serializers = _$serializers;
 

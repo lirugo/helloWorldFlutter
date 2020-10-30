@@ -25,6 +25,12 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(String)));
     }
+    if (object.insuredClient != null) {
+      result
+        ..add('insuredClient')
+        ..add(serializers.serialize(object.insuredClient,
+            specifiedType: const FullType(InsuredClient)));
+    }
     return result;
   }
 
@@ -44,6 +50,10 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'insuredClient':
+          result.insuredClient.replace(serializers.deserialize(value,
+              specifiedType: const FullType(InsuredClient)) as InsuredClient);
+          break;
       }
     }
 
@@ -54,11 +64,13 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
 class _$InsuranceCase extends InsuranceCase {
   @override
   final String id;
+  @override
+  final InsuredClient insuredClient;
 
   factory _$InsuranceCase([void Function(InsuranceCaseBuilder) updates]) =>
       (new InsuranceCaseBuilder()..update(updates)).build();
 
-  _$InsuranceCase._({this.id}) : super._();
+  _$InsuranceCase._({this.id, this.insuredClient}) : super._();
 
   @override
   InsuranceCase rebuild(void Function(InsuranceCaseBuilder) updates) =>
@@ -70,17 +82,21 @@ class _$InsuranceCase extends InsuranceCase {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is InsuranceCase && id == other.id;
+    return other is InsuranceCase &&
+        id == other.id &&
+        insuredClient == other.insuredClient;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, id.hashCode));
+    return $jf($jc($jc(0, id.hashCode), insuredClient.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('InsuranceCase')..add('id', id))
+    return (newBuiltValueToStringHelper('InsuranceCase')
+          ..add('id', id)
+          ..add('insuredClient', insuredClient))
         .toString();
   }
 }
@@ -93,11 +109,18 @@ class InsuranceCaseBuilder
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
+  InsuredClientBuilder _insuredClient;
+  InsuredClientBuilder get insuredClient =>
+      _$this._insuredClient ??= new InsuredClientBuilder();
+  set insuredClient(InsuredClientBuilder insuredClient) =>
+      _$this._insuredClient = insuredClient;
+
   InsuranceCaseBuilder();
 
   InsuranceCaseBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _insuredClient = _$v.insuredClient?.toBuilder();
       _$v = null;
     }
     return this;
@@ -118,7 +141,21 @@ class InsuranceCaseBuilder
 
   @override
   _$InsuranceCase build() {
-    final _$result = _$v ?? new _$InsuranceCase._(id: id);
+    _$InsuranceCase _$result;
+    try {
+      _$result = _$v ??
+          new _$InsuranceCase._(id: id, insuredClient: _insuredClient?.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'insuredClient';
+        _insuredClient?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'InsuranceCase', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

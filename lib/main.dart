@@ -167,7 +167,6 @@ class _InsuranceCompaniesState extends State<InsuranceCompanies> {
   }
 }
 
-
 class InsuranceCases extends StatefulWidget {
   InsuranceCases({Key key, this.title}) : super(key: key);
 
@@ -176,7 +175,6 @@ class InsuranceCases extends StatefulWidget {
   @override
   _InsuranceCasesState createState() => _InsuranceCasesState();
 }
-
 
 class _InsuranceCasesState extends State<InsuranceCases> {
   Future<BuiltList<InsuranceCase>> _getInsuranceCaseList() async {
@@ -226,15 +224,12 @@ class _InsuranceCasesState extends State<InsuranceCases> {
         title: Text(ic.id, style: TextStyle(fontSize: 16)),
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(""),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.launch),
-                )
+                Text('Клиент: ${ic.insuredClient.phoneNumber} \n'
+                    '${ic.insuredClient.lastName} ${ic.insuredClient.firstName} ${ic.insuredClient.middleName}'),
               ],
             ),
           ),

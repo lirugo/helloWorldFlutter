@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
+import 'insured_client.dart';
+
 part 'insurance_case.g.dart';
 
 abstract class InsuranceCase implements Built<InsuranceCase, InsuranceCaseBuilder>{
@@ -11,6 +13,9 @@ abstract class InsuranceCase implements Built<InsuranceCase, InsuranceCaseBuilde
 
   @nullable
   String get id;
+
+  @nullable
+  InsuredClient get insuredClient;
 
   InsuranceCase._();
 
