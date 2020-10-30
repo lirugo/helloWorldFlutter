@@ -14,81 +14,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo',
+      title: 'Fintech',
       theme: ThemeData(
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(title: 'Fintech'),
+      home: MyStatefulWidget(),
     );
   }
 }
 
-class FirstRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('First Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('Open route'),
-          onPressed: () {
-            // Navigate to second route when tapped.
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Route"),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -96,6 +40,95 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    Widget widget = InsuranceCompanies();
+    switch (_selectedIndex) {
+      case 0:
+        widget = InsuranceCompanies();
+        break;
+
+      case 1:
+        widget = InsuranceCases();
+        break;
+
+      case 2:
+        widget = Settings();
+        break;
+
+      default:
+        widget = InsuranceCompanies();
+        break;
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Fintech'),
+      ),
+      body: Center(
+        child: widget,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Старховые',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.time_to_leave),
+            label: 'ДТП',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Настройки',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.red,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class InsuranceCompanies extends StatefulWidget {
+  InsuranceCompanies({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _InsuranceCompaniesState createState() => _InsuranceCompaniesState();
+}
+
+class InsuranceCases extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: Text('InsuranceCases'),
+        onPressed: () {
+          // Navigate to second route when tapped.
+        },
+      ),
+    );
+  }
+}
+
+class Settings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: Text('Settings'),
+        onPressed: () {
+          // Navigate to second route when tapped.
+        },
+      ),
+    );
+  }
+}
+
+class _InsuranceCompaniesState extends State<InsuranceCompanies> {
   Future _insuranceCompanyList;
 
   Future<BuiltList<InsuranceCompany>> _getInsuranceCompanyList() async {
@@ -115,9 +148,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: FutureBuilder(
         future: _getInsuranceCompanyList(),
         builder: (context, snap) {
@@ -126,7 +156,7 @@ class _HomePageState extends State<HomePage> {
             return Container();
           } else {
             return ListView.builder(
-              itemCount: snap.data.length,
+              itemCount: snap.data != null ? snap.data.length : 0,
               itemBuilder: (context, index) {
                 InsuranceCompany ic = snap.data[index];
                 return Column(
@@ -136,25 +166,6 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Старховые',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.time_to_leave),
-            label: 'ДТП',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Настройки',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
     );
   }
