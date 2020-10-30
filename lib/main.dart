@@ -16,10 +16,48 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(title: 'Fintech'),
+    );
+  }
+}
+
+class FirstRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Open route'),
+          onPressed: () {
+            // Navigate to second route when tapped.
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }
@@ -34,9 +72,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future _insuranceCompanyList;
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2',
+      style: optionStyle,
+    ),
+  ];
 
-  _HomePageState() {}
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Future _insuranceCompanyList;
 
   Future<BuiltList<InsuranceCompany>> _getInsuranceCompanyList() async {
     BuiltList<InsuranceCompany> insuranceCompanyList;
@@ -55,30 +115,48 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: FutureBuilder(
-          future: _getInsuranceCompanyList(),
-          builder: (context, snap) {
-            if (snap.connectionState == ConnectionState.none &&
-                snap.hasData == null) {
-              return Container();
-            } else {
-              return ListView.builder(
-                itemCount: snap.data.length,
-                itemBuilder: (context, index) {
-                  InsuranceCompany ic = snap.data[index];
-                  return Column(
-                    children: <Widget>[
-                      _buildVehicle(ic)
-                    ],
-                  );
-                },
-              );
-            }
-          },
-        ));
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: FutureBuilder(
+        future: _getInsuranceCompanyList(),
+        builder: (context, snap) {
+          if (snap.connectionState == ConnectionState.none &&
+              snap.hasData == null) {
+            return Container();
+          } else {
+            return ListView.builder(
+              itemCount: snap.data.length,
+              itemBuilder: (context, index) {
+                InsuranceCompany ic = snap.data[index];
+                return Column(
+                  children: <Widget>[_buildVehicle(ic)],
+                );
+              },
+            );
+          }
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Старховые',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.time_to_leave),
+            label: 'ДТП',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Настройки',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
   }
 
   Widget _buildVehicle(InsuranceCompany ic) {
