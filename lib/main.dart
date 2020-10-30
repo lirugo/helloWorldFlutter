@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hello_world_flutter/src/model/insurance_case.dart';
 import 'package:hello_world_flutter/src/model/insurance_company.dart';
 import 'package:hello_world_flutter/src/serializers.dart';
@@ -228,8 +229,7 @@ class _InsuranceCasesState extends State<InsuranceCases> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                    'Адрес: ${ic.insuranceCase.address} \n'
+                Text('Адрес: ${ic.insuranceCase.address} \n'
                     'Клиент: ${ic.insuredClient.phoneNumber} \n'
                     '${ic.insuredClient.lastName} ${ic.insuredClient.firstName} ${ic.insuredClient.middleName}\n\n'
                     'Транспортное средство:\n'
@@ -238,8 +238,7 @@ class _InsuranceCasesState extends State<InsuranceCases> {
                     'VIN: ${ic.insuredVehicle.vin}\n'
                     'Год: ${ic.insuredVehicle.year}\n'
                     'Гос. номер: ${ic.insuredVehicle.licensePlate}\n'
-                    'Цвет: ${ic.insuredVehicle.color}\n'
-                ),
+                    'Цвет: ${ic.insuredVehicle.color}\n'),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.launch),
@@ -253,16 +252,181 @@ class _InsuranceCasesState extends State<InsuranceCases> {
   }
 }
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  static final String path = "lib/src/pages/settings/settings1.dart";
+
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  bool _dark;
+
+  @override
+  void initState() {
+    super.initState();
+    _dark = false;
+  }
+
+  Brightness _getBrightness() {
+    return _dark ? Brightness.dark : Brightness.light;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: Text('Settings'),
-        onPressed: () {
-          // Navigate to second route when tapped.
-        },
+    return Theme(
+      isMaterialAppTheme: true,
+      data: ThemeData(
+        brightness: _getBrightness(),
       ),
+      child: Scaffold(
+        backgroundColor: _dark ? null : Colors.grey.shade200,
+        appBar: AppBar(
+          elevation: 0,
+          brightness: _getBrightness(),
+          iconTheme: IconThemeData(color: _dark ? Colors.white : Colors.black),
+          backgroundColor: Colors.transparent,
+        ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Card(
+                    elevation: 8.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    color: Colors.red,
+                    child: ListTile(
+                      onTap: () {
+                        //open edit profile
+                      },
+                      title: Text(
+                        "Иванов Иван",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      leading: Icon(
+                        Icons.verified_user,
+                        color: Colors.white,
+                      ),
+                      trailing: Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10.0),
+                  Card(
+                    elevation: 4.0,
+                    margin: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Column(
+                      children: <Widget>[
+                        ListTile(
+                          leading: Icon(
+                            Icons.lock_outline,
+                            color: Colors.red,
+                          ),
+                          title: Text("Изменить пароль"),
+                          trailing: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            //open change password
+                          },
+                        ),
+                        _buildDivider(),
+                        ListTile(
+                          leading: Icon(
+                            Icons.language,
+                            color: Colors.red,
+                          ),
+                          title: Text("Изменить язык"),
+                          trailing: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            //open change language
+                          },
+                        ),
+                        _buildDivider(),
+                        ListTile(
+                          leading: Icon(
+                            Icons.location_on,
+                            color: Colors.red,
+                          ),
+                          title: Text("Изменить профиль"),
+                          trailing: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            //open change location
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                      elevation: 4.0,
+                      margin: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                            child: SwitchListTile(
+                              activeColor: Colors.red,
+                              contentPadding: const EdgeInsets.all(0),
+                              value: true,
+                              title: Text("Уведомления по email"),
+                              onChanged: (val) {},
+                            ),
+                          ),
+                          _buildDivider(),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                            child: SwitchListTile(
+                              activeColor: Colors.red,
+                              contentPadding: const EdgeInsets.all(0),
+                              value: true,
+                              title: Text("Уведомления по sms"),
+                              onChanged: (val) {},
+                            ),
+                          ),
+                          _buildDivider(),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                            child: SwitchListTile(
+                              activeColor: Colors.red,
+                              contentPadding: const EdgeInsets.all(0),
+                              value: true,
+                              title: Text("Уведомления в приложении"),
+                              onChanged: (val) {},
+                            ),
+                          ),
+                          _buildDivider(),
+
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildDivider() {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+      ),
+      width: double.infinity,
+      height: 1.0,
+      color: Colors.grey.shade400,
     );
   }
 }
