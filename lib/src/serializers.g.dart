@@ -12,6 +12,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(InsuranceCaseInfo.serializer)
       ..add(InsuranceCompany.serializer)
       ..add(InsuredClient.serializer)
+      ..add(InsuredVehicle.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(int)]),
           () => new ListBuilder<int>()))

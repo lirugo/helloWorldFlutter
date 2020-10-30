@@ -31,6 +31,12 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
         ..add(serializers.serialize(object.insuredClient,
             specifiedType: const FullType(InsuredClient)));
     }
+    if (object.insuredVehicle != null) {
+      result
+        ..add('insuredVehicle')
+        ..add(serializers.serialize(object.insuredVehicle,
+            specifiedType: const FullType(InsuredVehicle)));
+    }
     return result;
   }
 
@@ -55,6 +61,10 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
           result.insuredClient.replace(serializers.deserialize(value,
               specifiedType: const FullType(InsuredClient)) as InsuredClient);
           break;
+        case 'insuredVehicle':
+          result.insuredVehicle.replace(serializers.deserialize(value,
+              specifiedType: const FullType(InsuredVehicle)) as InsuredVehicle);
+          break;
       }
     }
 
@@ -67,11 +77,15 @@ class _$InsuranceCase extends InsuranceCase {
   final InsuranceCaseInfo insuranceCase;
   @override
   final InsuredClient insuredClient;
+  @override
+  final InsuredVehicle insuredVehicle;
 
   factory _$InsuranceCase([void Function(InsuranceCaseBuilder) updates]) =>
       (new InsuranceCaseBuilder()..update(updates)).build();
 
-  _$InsuranceCase._({this.insuranceCase, this.insuredClient}) : super._();
+  _$InsuranceCase._(
+      {this.insuranceCase, this.insuredClient, this.insuredVehicle})
+      : super._();
 
   @override
   InsuranceCase rebuild(void Function(InsuranceCaseBuilder) updates) =>
@@ -85,19 +99,22 @@ class _$InsuranceCase extends InsuranceCase {
     if (identical(other, this)) return true;
     return other is InsuranceCase &&
         insuranceCase == other.insuranceCase &&
-        insuredClient == other.insuredClient;
+        insuredClient == other.insuredClient &&
+        insuredVehicle == other.insuredVehicle;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, insuranceCase.hashCode), insuredClient.hashCode));
+    return $jf($jc($jc($jc(0, insuranceCase.hashCode), insuredClient.hashCode),
+        insuredVehicle.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('InsuranceCase')
           ..add('insuranceCase', insuranceCase)
-          ..add('insuredClient', insuredClient))
+          ..add('insuredClient', insuredClient)
+          ..add('insuredVehicle', insuredVehicle))
         .toString();
   }
 }
@@ -118,12 +135,19 @@ class InsuranceCaseBuilder
   set insuredClient(InsuredClientBuilder insuredClient) =>
       _$this._insuredClient = insuredClient;
 
+  InsuredVehicleBuilder _insuredVehicle;
+  InsuredVehicleBuilder get insuredVehicle =>
+      _$this._insuredVehicle ??= new InsuredVehicleBuilder();
+  set insuredVehicle(InsuredVehicleBuilder insuredVehicle) =>
+      _$this._insuredVehicle = insuredVehicle;
+
   InsuranceCaseBuilder();
 
   InsuranceCaseBuilder get _$this {
     if (_$v != null) {
       _insuranceCase = _$v.insuranceCase?.toBuilder();
       _insuredClient = _$v.insuredClient?.toBuilder();
+      _insuredVehicle = _$v.insuredVehicle?.toBuilder();
       _$v = null;
     }
     return this;
@@ -149,7 +173,8 @@ class InsuranceCaseBuilder
       _$result = _$v ??
           new _$InsuranceCase._(
               insuranceCase: _insuranceCase?.build(),
-              insuredClient: _insuredClient?.build());
+              insuredClient: _insuredClient?.build(),
+              insuredVehicle: _insuredVehicle?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -157,6 +182,8 @@ class InsuranceCaseBuilder
         _insuranceCase?.build();
         _$failedField = 'insuredClient';
         _insuredClient?.build();
+        _$failedField = 'insuredVehicle';
+        _insuredVehicle?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'InsuranceCase', _$failedField, e.toString());

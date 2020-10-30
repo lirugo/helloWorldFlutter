@@ -9,6 +9,7 @@ import 'model/insurance_company.dart';
 import 'model/insurance_case.dart';
 import 'model/insurance_case_info.dart';
 import 'model/insured_client.dart';
+import 'model/insured_vehicle.dart';
 
 part 'serializers.g.dart';
 
@@ -18,6 +19,7 @@ part 'serializers.g.dart';
   InsuranceCase,
   InsuranceCaseInfo,
   InsuredClient,
+  InsuredVehicle,
 ])
 final Serializers serializers = _$serializers;
 
