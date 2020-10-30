@@ -19,11 +19,11 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
   Iterable<Object> serialize(Serializers serializers, InsuranceCase object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    if (object.insuranceCase != null) {
       result
-        ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(String)));
+        ..add('insuranceCase')
+        ..add(serializers.serialize(object.insuranceCase,
+            specifiedType: const FullType(InsuranceCaseInfo)));
     }
     if (object.insuredClient != null) {
       result
@@ -46,9 +46,10 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'insuranceCase':
+          result.insuranceCase.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(InsuranceCaseInfo))
+              as InsuranceCaseInfo);
           break;
         case 'insuredClient':
           result.insuredClient.replace(serializers.deserialize(value,
@@ -63,14 +64,14 @@ class _$InsuranceCaseSerializer implements StructuredSerializer<InsuranceCase> {
 
 class _$InsuranceCase extends InsuranceCase {
   @override
-  final String id;
+  final InsuranceCaseInfo insuranceCase;
   @override
   final InsuredClient insuredClient;
 
   factory _$InsuranceCase([void Function(InsuranceCaseBuilder) updates]) =>
       (new InsuranceCaseBuilder()..update(updates)).build();
 
-  _$InsuranceCase._({this.id, this.insuredClient}) : super._();
+  _$InsuranceCase._({this.insuranceCase, this.insuredClient}) : super._();
 
   @override
   InsuranceCase rebuild(void Function(InsuranceCaseBuilder) updates) =>
@@ -83,19 +84,19 @@ class _$InsuranceCase extends InsuranceCase {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is InsuranceCase &&
-        id == other.id &&
+        insuranceCase == other.insuranceCase &&
         insuredClient == other.insuredClient;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, id.hashCode), insuredClient.hashCode));
+    return $jf($jc($jc(0, insuranceCase.hashCode), insuredClient.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('InsuranceCase')
-          ..add('id', id)
+          ..add('insuranceCase', insuranceCase)
           ..add('insuredClient', insuredClient))
         .toString();
   }
@@ -105,9 +106,11 @@ class InsuranceCaseBuilder
     implements Builder<InsuranceCase, InsuranceCaseBuilder> {
   _$InsuranceCase _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  InsuranceCaseInfoBuilder _insuranceCase;
+  InsuranceCaseInfoBuilder get insuranceCase =>
+      _$this._insuranceCase ??= new InsuranceCaseInfoBuilder();
+  set insuranceCase(InsuranceCaseInfoBuilder insuranceCase) =>
+      _$this._insuranceCase = insuranceCase;
 
   InsuredClientBuilder _insuredClient;
   InsuredClientBuilder get insuredClient =>
@@ -119,7 +122,7 @@ class InsuranceCaseBuilder
 
   InsuranceCaseBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
+      _insuranceCase = _$v.insuranceCase?.toBuilder();
       _insuredClient = _$v.insuredClient?.toBuilder();
       _$v = null;
     }
@@ -144,10 +147,14 @@ class InsuranceCaseBuilder
     _$InsuranceCase _$result;
     try {
       _$result = _$v ??
-          new _$InsuranceCase._(id: id, insuredClient: _insuredClient?.build());
+          new _$InsuranceCase._(
+              insuranceCase: _insuranceCase?.build(),
+              insuredClient: _insuredClient?.build());
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'insuranceCase';
+        _insuranceCase?.build();
         _$failedField = 'insuredClient';
         _insuredClient?.build();
       } catch (e) {

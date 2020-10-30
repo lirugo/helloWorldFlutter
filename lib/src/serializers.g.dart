@@ -9,6 +9,7 @@ part of serializers;
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Article.serializer)
       ..add(InsuranceCase.serializer)
+      ..add(InsuranceCaseInfo.serializer)
       ..add(InsuranceCompany.serializer)
       ..add(InsuredClient.serializer)
       ..addBuilderFactory(

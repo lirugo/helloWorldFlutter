@@ -218,18 +218,21 @@ class _InsuranceCasesState extends State<InsuranceCases> {
 
   Widget _buildInsuranceCases(InsuranceCase ic) {
     return Padding(
-      key: Key(ic.id),
+      key: Key(ic.insuranceCase.title+ic.insuranceCase.address),
       padding: const EdgeInsets.all(0),
       child: ExpansionTile(
-        title: Text(ic.id, style: TextStyle(fontSize: 16)),
+        title: Text(ic.insuranceCase.title, style: TextStyle(fontSize: 16)),
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Клиент: ${ic.insuredClient.phoneNumber} \n'
-                    '${ic.insuredClient.lastName} ${ic.insuredClient.firstName} ${ic.insuredClient.middleName}'),
+                Text(
+                    'Адрес: ${ic.insuranceCase.address} \n'
+                    'Клиент: ${ic.insuredClient.phoneNumber} \n'
+                    '${ic.insuredClient.lastName} ${ic.insuredClient.firstName} ${ic.insuredClient.middleName}'
+                ),
               ],
             ),
           ),
