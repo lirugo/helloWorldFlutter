@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_world_flutter/src/model/insurance_case.dart';
 import 'package:hello_world_flutter/src/model/insurance_company.dart';
 import 'package:hello_world_flutter/src/serializers.dart';
 import 'package:http/http.dart' as http;
@@ -100,37 +101,7 @@ class InsuranceCompanies extends StatefulWidget {
   _InsuranceCompaniesState createState() => _InsuranceCompaniesState();
 }
 
-class InsuranceCases extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: Text('InsuranceCases'),
-        onPressed: () {
-          // Navigate to second route when tapped.
-        },
-      ),
-    );
-  }
-}
-
-class Settings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: Text('Settings'),
-        onPressed: () {
-          // Navigate to second route when tapped.
-        },
-      ),
-    );
-  }
-}
-
 class _InsuranceCompaniesState extends State<InsuranceCompanies> {
-  Future _insuranceCompanyList;
-
   Future<BuiltList<InsuranceCompany>> _getInsuranceCompanyList() async {
     BuiltList<InsuranceCompany> insuranceCompanyList;
 
@@ -160,7 +131,7 @@ class _InsuranceCompaniesState extends State<InsuranceCompanies> {
               itemBuilder: (context, index) {
                 InsuranceCompany ic = snap.data[index];
                 return Column(
-                  children: <Widget>[_buildVehicle(ic)],
+                  children: <Widget>[_buildInsuranceCompanies(ic)],
                 );
               },
             );
@@ -170,7 +141,7 @@ class _InsuranceCompaniesState extends State<InsuranceCompanies> {
     );
   }
 
-  Widget _buildVehicle(InsuranceCompany ic) {
+  Widget _buildInsuranceCompanies(InsuranceCompany ic) {
     return Padding(
       key: Key(ic.id),
       padding: const EdgeInsets.all(0),
@@ -191,9 +162,97 @@ class _InsuranceCompaniesState extends State<InsuranceCompanies> {
             ),
           ),
         ],
-        // onTap: () {
-        //
-        // },
+      ),
+    );
+  }
+}
+
+
+class InsuranceCases extends StatefulWidget {
+  InsuranceCases({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _InsuranceCasesState createState() => _InsuranceCasesState();
+}
+
+
+class _InsuranceCasesState extends State<InsuranceCases> {
+  Future<BuiltList<InsuranceCase>> _getInsuranceCaseList() async {
+    BuiltList<InsuranceCase> insuranceCaseList;
+
+    final url = 'http://192.168.11.78:9094/api/v1/insurance-case';
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      var jsonList = json.decode(utf8.decode(response.bodyBytes)) as List;
+      insuranceCaseList = deserializeListOf<InsuranceCase>(jsonList);
+    }
+
+    return insuranceCaseList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder(
+        future: _getInsuranceCaseList(),
+        builder: (context, snap) {
+          if (snap.connectionState == ConnectionState.none &&
+              snap.hasData == null) {
+            return Container();
+          } else {
+            return ListView.builder(
+              itemCount: snap.data != null ? snap.data.length : 0,
+              itemBuilder: (context, index) {
+                InsuranceCase ic = snap.data[index];
+                return Column(
+                  children: <Widget>[_buildInsuranceCases(ic)],
+                );
+              },
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildInsuranceCases(InsuranceCase ic) {
+    return Padding(
+      key: Key(ic.id),
+      padding: const EdgeInsets.all(0),
+      child: ExpansionTile(
+        title: Text(ic.id, style: TextStyle(fontSize: 16)),
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(""),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.launch),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Settings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: Text('Settings'),
+        onPressed: () {
+          // Navigate to second route when tapped.
+        },
       ),
     );
   }

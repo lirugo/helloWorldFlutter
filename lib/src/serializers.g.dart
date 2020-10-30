@@ -8,6 +8,7 @@ part of serializers;
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Article.serializer)
+      ..add(InsuranceCase.serializer)
       ..add(InsuranceCompany.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(int)]),
