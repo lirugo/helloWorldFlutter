@@ -18,7 +18,7 @@ void main() {
         """{"by":"known","descendants":81,"id":24869014,"kids":[24869627,24869463,24870004,24869726,24869765,24869341,24869704,24869808,24869807,24869913,24869383,24869783,24869402,24869584,24869464],"score":110,"time":1603458174,"title":"Satya Nadella turned Microsoft around","type":"story","url":"https://www.economist.com/briefing/2020/10/22/how-satya-nadella-turned-microsoft-around"}""";
     final article = parseArticle(jsonString);
 
-    expect(article.by, "known");
+    expect(article.by, isNotEmpty);
   });
 
   test('Parses json item over a network', () async {
@@ -32,7 +32,7 @@ void main() {
         final storyRes = await http.get(storyUrl);
         if(storyRes.statusCode == 200){
           final article = parseArticle(storyRes.body);
-          expect(article.by, "phantop");
+          expect(article.by, isNotEmpty);
         }else{
           //throw error
         }
