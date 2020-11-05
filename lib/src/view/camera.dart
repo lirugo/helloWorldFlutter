@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class Camera extends StatefulWidget {
@@ -18,6 +19,8 @@ class _CameraState extends State<Camera> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
     if (widget.cameras.length > 0) {
       _controller =
           CameraController(widget.cameras.first, ResolutionPreset.medium);
