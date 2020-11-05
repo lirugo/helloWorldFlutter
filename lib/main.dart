@@ -2,14 +2,21 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hello_world_flutter/src/model/insurance_case.dart';
 import 'package:hello_world_flutter/src/model/insurance_company.dart';
 import 'package:hello_world_flutter/src/serializers.dart';
+import 'package:hello_world_flutter/src/view/camera.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
+List<CameraDescription> cameras;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+
   runApp(MyApp());
 }
 
@@ -57,6 +64,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       case 2:
         widget = Settings();
+        break;
+
+      case 3:
+        widget = Camera(cameras: cameras);
         break;
 
       default:
@@ -121,6 +132,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera),
+              title: Text('Камера'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Camera(cameras: cameras)),
+                );
               },
             ),
           ],
