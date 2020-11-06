@@ -58,35 +58,38 @@ class _InsuranceCasesState extends State<InsuranceCases> {
   }
 
   Widget _buildInsuranceCases(InsuranceCase ic) {
-    return Padding(
-      key: Key(ic.insuranceCase.title + ic.insuranceCase.address),
-      padding: const EdgeInsets.all(0),
-      child: ExpansionTile(
-        title: Text(ic.insuranceCase.title, style: TextStyle(fontSize: 16)),
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 8, 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Адрес: ${ic.insuranceCase.address} \n'
-                    'Клиент: ${ic.insuredClient.phoneNumber} \n'
-                    '${ic.insuredClient.lastName} ${ic.insuredClient.firstName} ${ic.insuredClient.middleName}\n\n'
-                    'Транспортное средство:\n'
-                    'Модель: ${ic.insuredVehicle.model}\n'
-                    'Марка: ${ic.insuredVehicle.make}\n'
-                    'VIN: ${ic.insuredVehicle.vin}\n'
-                    'Год: ${ic.insuredVehicle.year}\n'
-                    'Гос. номер: ${ic.insuredVehicle.licensePlate}\n'
-                    'Цвет: ${ic.insuredVehicle.color}\n'),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.launch),
-                ),
-              ],
+    return Card(
+      margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+      child: Padding(
+        key: Key(ic.insuranceCase.title + ic.insuranceCase.address),
+        padding: const EdgeInsets.all(0),
+        child: ExpansionTile(
+          title: Text(ic.insuranceCase.title, style: TextStyle(fontSize: 16)),
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 8, 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Адрес: ${ic.insuranceCase.address} \n'
+                      'Клиент: ${ic.insuredClient.phoneNumber} \n'
+                      '${ic.insuredClient.lastName} ${ic.insuredClient.firstName} ${ic.insuredClient.middleName}\n\n'
+                      'Транспортное средство:\n'
+                      'Модель: ${ic.insuredVehicle.model}\n'
+                      'Марка: ${ic.insuredVehicle.make}\n'
+                      'VIN: ${ic.insuredVehicle.vin}\n'
+                      'Год: ${ic.insuredVehicle.year}\n'
+                      'Гос. номер: ${ic.insuredVehicle.licensePlate}\n'
+                      'Цвет: ${ic.insuredVehicle.color}\n'),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.launch),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -58,26 +58,29 @@ class _InsuranceCompaniesState extends State<InsuranceCompanies> {
   }
 
   Widget _buildInsuranceCompanies(InsuranceCompany ic) {
-    return Padding(
-      key: Key(ic.id),
-      padding: const EdgeInsets.all(0),
-      child: ExpansionTile(
-        title: Text(ic.name, style: TextStyle(fontSize: 16)),
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(ic.phoneNumber + "\n" + ic.address),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.launch),
-                )
-              ],
+    return Card(
+      margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+      child: Padding(
+        key: Key(ic.id),
+        padding: const EdgeInsets.all(0),
+        child: ExpansionTile(
+          title: Text(ic.name, style: TextStyle(fontSize: 16)),
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(ic.phoneNumber + "\n" + ic.address),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.launch),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
