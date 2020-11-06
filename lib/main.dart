@@ -7,6 +7,7 @@ import 'package:hello_world_flutter/src/view/camera.dart';
 import 'package:hello_world_flutter/src/view/insurance_cases.dart';
 import 'package:hello_world_flutter/src/view/insurance_companies.dart';
 import 'package:hello_world_flutter/src/view/settings.dart';
+import 'package:hello_world_flutter/src/view/sign_in.dart';
 
 List<CameraDescription> cameras;
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyStatefulWidget(),
+      home: SignIn(),
     );
   }
 }
