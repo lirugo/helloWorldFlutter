@@ -16,6 +16,13 @@ class _CameraState extends State<Camera> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
 
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  }
+
   @override
   void initState() {
     super.initState();
