@@ -8,15 +8,15 @@ import 'package:hello_world_flutter/src/view/insurance_cases.dart';
 import 'package:hello_world_flutter/src/view/insurance_companies.dart';
 import 'package:hello_world_flutter/src/view/settings.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key key, this.cameras}) : super(key: key);
+class MyWidget extends StatefulWidget {
+  const MyWidget({Key key, this.cameras}) : super(key: key);
   final List<CameraDescription> cameras;
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _MyWidgetState createState() => _MyWidgetState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyWidgetState extends State<MyWidget> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {

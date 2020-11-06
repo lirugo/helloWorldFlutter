@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_world_flutter/src/utils/styles.dart';
-import 'package:hello_world_flutter/src/view/my_app.dart';
+import 'package:hello_world_flutter/src/view/my_widget.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -312,12 +312,11 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  //TODO FIX IT
   _SignInAction(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => MyApp()),
+          builder: (context) => MyWidget()),
     );
   }
 }

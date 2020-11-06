@@ -7,12 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hello_world_flutter/src/view/my_app.dart';
+import 'package:hello_world_flutter/src/view/my_widget.dart';
 
 void main() {
   testWidgets('Click tile opens it', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(MyWidget());
 
     expect(find.byIcon(Icons.launch), findsNothing);
 
