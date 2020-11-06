@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world_flutter/src/model/insurance_case.dart';
+import 'package:hello_world_flutter/src/view/insurance_case_view.dart';
 import 'package:http/http.dart' as http;
 
 import '../serializers.dart';
@@ -106,13 +107,24 @@ class _InsuranceCasesState extends State<InsuranceCases> {
                 children: [
                   RaisedButton(
                     elevation: 1,
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                InsuranceCaseView(id: 'asd')
+                        ),
+                      )
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     padding: EdgeInsets.all(1.0),
                     color: Colors.green,
-                    child: Text('Открыть', style: TextStyle(color: Colors.white),),
+                    child: Text(
+                      'Открыть',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),

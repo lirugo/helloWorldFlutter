@@ -8,16 +8,9 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool _dark;
-
   @override
   void initState() {
     super.initState();
-    _dark = false;
-  }
-
-  Brightness _getBrightness() {
-    return _dark ? Brightness.dark : Brightness.light;
   }
 
   @override
