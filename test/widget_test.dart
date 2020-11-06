@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hello_world_flutter/main.dart';
+import 'package:hello_world_flutter/src/view/my_app.dart';
 
 void main() {
   testWidgets('Click tile opens it', (WidgetTester tester) async {

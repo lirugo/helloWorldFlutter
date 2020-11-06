@@ -1,13 +1,12 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_world_flutter/src/utils/styles.dart';
+import 'package:hello_world_flutter/src/view/my_app.dart';
 
 class SignIn extends StatefulWidget {
   @override
-  _SignInState createState () => _SignInState();
+  _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
@@ -130,7 +129,7 @@ class _SignInState extends State<SignIn> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 4,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () => _SignInAction(context),
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -196,13 +195,13 @@ class _SignInState extends State<SignIn> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildSocialBtn(
-                () => print('Login with Facebook'),
+            () => print('Login with Facebook'),
             AssetImage(
               'assets/logos/facebook.jpg',
             ),
           ),
           _buildSocialBtn(
-                () => print('Login with Google'),
+            () => print('Login with Google'),
             AssetImage(
               'assets/logos/google.jpg',
             ),
@@ -242,67 +241,83 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFFEA4C46),
-                      Color(0xFFDC1C13),
-                    ],
+    return MaterialApp(
+      title: 'Fintech',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFFEA4C46),
+                        Color(0xFFDC1C13),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 70.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                Container(
+                  height: double.infinity,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40.0,
+                      vertical: 70.0,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignInWithText(),
-                      _buildSocialBtnRow(),
-                      _buildSignupBtn(),
-                    ],
+                        SizedBox(height: 30.0),
+                        _buildEmailTF(),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildPasswordTF(),
+                        _buildForgotPasswordBtn(),
+                        _buildRememberMeCheckbox(),
+                        _buildLoginBtn(),
+                        _buildSignInWithText(),
+                        _buildSocialBtnRow(),
+                        _buildSignupBtn(),
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  //TODO FIX IT
+  _SignInAction(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MyApp()),
     );
   }
 }
