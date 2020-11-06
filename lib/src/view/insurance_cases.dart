@@ -54,22 +54,33 @@ class _InsuranceCasesState extends State<InsuranceCases> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.green,
+      ),
     );
   }
 
   Widget _buildInsuranceCases(InsuranceCase ic) {
     return Card(
-      margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Padding(
         key: Key(ic.insuranceCase.title + ic.insuranceCase.address),
         padding: const EdgeInsets.all(0),
         child: ExpansionTile(
           title: Text(ic.insuranceCase.title, style: TextStyle(fontSize: 16)),
           children: [
+            Divider(
+              height: 10,
+              color: Colors.grey,
+            ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 8, 16),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text('Адрес: ${ic.insuranceCase.address} \n'
                       'Клиент: ${ic.insuredClient.phoneNumber} \n'
@@ -81,9 +92,27 @@ class _InsuranceCasesState extends State<InsuranceCases> {
                       'Год: ${ic.insuredVehicle.year}\n'
                       'Гос. номер: ${ic.insuredVehicle.licensePlate}\n'
                       'Цвет: ${ic.insuredVehicle.color}\n'),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.launch),
+                ],
+              ),
+            ),
+            Divider(
+              height: 10,
+              color: Colors.grey,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  RaisedButton(
+                    elevation: 1,
+                    onPressed: () => {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    padding: EdgeInsets.all(1.0),
+                    color: Colors.green,
+                    child: Text('Открыть', style: TextStyle(color: Colors.white),),
                   ),
                 ],
               ),
